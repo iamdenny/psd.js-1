@@ -1,8 +1,8 @@
 class PSDResource
   RESOURCE_DESCRIPTIONS =
-    1000: 
+    1000:
       name: 'PS2.0 mode data'
-      parse: -> 
+      parse: ->
         [
           @channels,
           @rows,
@@ -11,7 +11,7 @@ class PSDResource
           @mode
         ] = @file.readf ">5H"
 
-    1001: 
+    1001:
       # Data format missing from spec
       name: 'Macintosh print record'
 
@@ -53,7 +53,7 @@ class PSDResource
 
     1011:
       name: 'Print flags'
-      parse: -> 
+      parse: ->
         start = @file.tell()
         [
           # These are all simple boolean flags
@@ -75,7 +75,7 @@ class PSDResource
       # Missing from spec
       name: 'Grayscale/multichannel halftoning info'
 
-    1013: 
+    1013:
       # Missing from spec
       name: 'Color halftoning info'
 
@@ -91,7 +91,7 @@ class PSDResource
       # Missing from spec
       name: 'Color transfer functions'
 
-    1017: 
+    1017:
       # Missing from spec
       name: 'Duotone transfer functions'
 
@@ -108,24 +108,24 @@ class PSDResource
       # Missing from spec
       name: 'EPS options'
 
-    1022: 
+    1022:
       name: 'Quick Mask info'
-      parse: -> 
+      parse: ->
         [
-          @quickMaskChannelID, 
+          @quickMaskChannelID,
           @wasMaskEmpty
         ] = @file.readf ">HB"
 
-    1024: 
+    1024:
       # target = 0 means bottom layer
       name: 'Layer state info'
       parse: -> [@targetLayer] = @file.readf ">H"
 
-    1025: 
+    1025:
       # TODO (not saved though, so optional?)
       name: 'Working path'
 
-    1026: 
+    1026:
       name: 'Layers group info'
       parse: ->
         start = @file.tell()
@@ -193,7 +193,7 @@ class PSDResource
     1043:
       name: 'Spot Halftone'
       parse: ->
-        [@halftoneVersion, length] @file.readf ">LL"
+        [@halftoneVersion, length] = @file.readf ">LL"
         @halftoneData = @file.read length
 
     1044:
@@ -226,7 +226,7 @@ class PSDResource
 
     1052:
       name: 'Jump To XPEP'
-      parse: -> 
+      parse: ->
         [
           @majorVersion,
           @minorVersion,
@@ -360,7 +360,7 @@ class PSDResource
   constructor: (@file) ->
 
   parse: ->
-    @at = @file.tell()  
+    @at = @file.tell()
 
     [@type, @id, @namelen] = @file.readf ">4s H B"
 
