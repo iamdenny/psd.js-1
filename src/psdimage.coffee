@@ -402,7 +402,7 @@ class PSDImage
 
     context.putImageData imageData, 0, 0
 
-  toImage: ->
-    canvas = document.createElement 'canvas'
+  toImage: (canvas) ->
+    canvas = canvas || document.createElement 'canvas'
     @toCanvas canvas
     canvas.toDataURL "image/png"
